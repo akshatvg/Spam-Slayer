@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Spam Slayer</title>
+
+    <script src="jquery-3.1.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!-- <script src = "popup.js"></script> -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="https://fonts.googleapis.com/css?family=Acme&display=swap" rel="stylesheet">
+
+    <style type="text/css">
+        body {
+            min-width: 300px;
+            /* your desired width */
+            max-width: 100%;
+            position: absolute;
+            vertical-align: middle;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div align="center">
+        <h1 style="font-family: 'Acme', sans-serif;">Spam Slayer</h1>
+        <button id="geturlbtn" type="button" class="btn btn-warning" style="margin-bottom: 10px;"><i
+                class='fas fa-copy'></i> Get URL</button>
+    </div>
+
+    <div class="input-group">
+        <input type="text" class="form-control d-inline" aria-describedby="basic-addon3" value=""
+            placeholder="ex: amazon.in/devJAMS" id="link"
+            style="max-width: 200px; margin-right: 10px; margin-left: 10px; border-radius: 13px;">
+        <button onclick="send()" type="button" class="btn btn-primary d-inline">Test</button>
+    </div>
+
+    <br>
+    <p>The original Rating after removing fake reviews:</p>
+    <ul style="display: inline; font-weight: 700;" id="or"></ul>
+    <p>The normalised Rating after weighing based off sentiment:</p>
+    <ul style="display: inline; font-weight: 700;" id="nr"></ul>
+    <!--<input id="prodLink" type="submit" value="Submit" />-->
+
+    <div id="ans"></div>
+</body>
+
+<script>
+    document.getElementById("geturlbtn").addEventListener("click", () => {
+        // alert('clicked')
+        var tablink;
+        chrome.tabs.getSelected(null, function (tab) {
+            tablink = tab.url;
+            alert(tablink);
+        });
+
+
+    })
+</script>
+
+<script>
+    function send() {
+        var x = document.getElementById("link").value;
+        respon_json = {
+            'text': x
+        }
+        $.ajax({
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            url: "http://127.0.0.1:5000/url", //localhostURL
+            traditional: "true",
+            data: JSON.stringify(respon_json),
+            dataType: "json",
+            success: function (response) {
+                //define function here. or what
+                //document.getElementById("speed").innerHTML =`Speed: ${response.response[0]}`;
+                document.getElementById("or").innerHTML = response.response[1];
+                document.getElementById("nr").innerHTML = response.response[0];
+            }
+        });
+
+    }
+</script>
+
+</html>

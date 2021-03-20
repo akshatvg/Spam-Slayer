@@ -1,0 +1,6 @@
+model_checkpoint_path: "/content/runs/1568514605/checkpoints/model-14400"
+all_model_checkpoint_paths: "/content/runs/1568514605/checkpoints/model-14000"
+all_model_checkpoint_paths: "/content/runs/1568514605/checkpoints/model-14100"
+all_model_checkpoint_paths: "/content/runs/1568514605/checkpoints/model-14200"
+all_model_checkpoint_paths: "/content/runs/1568514605/checkpoints/model-14300"
+all_model_checkpoint_paths: "/content/runs/1568514605/checkpoints/model-14400"

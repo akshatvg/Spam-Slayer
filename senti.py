@@ -1,11 +1,13 @@
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 import json
+import os
 from watson_developer_cloud.natural_language_understanding_v1 import Features, SentimentOptions
 
 def get_senti(text):
 
-    authenticator = IAMAuthenticator('{apikey}')
+    authenticator = IAMAuthenticator(os.environ.get('apikey'))
+    # authenticator = IAMAuthenticator('sW2bItawdCipA-xqY3hc5SIC5WrW6QFq-VaBvRTnQfNL')
     natural_language_understanding = NaturalLanguageUnderstandingV1(
         version='2019-07-12',
         authenticator=authenticator
